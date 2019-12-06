@@ -26,7 +26,9 @@ How to install or verify Homebrew on your computer:
 ### Mac Users: install Xcode Command Line Tools
 
 1. Open your Terminal.
-1. On a Mac, install Xcode Command Line Tools by running `xcode-select --install`.
+1. On a Mac, install Xcode Command Line Tools by running `xcode-select 
+
+install`.
    1. If that fails, download it [directly from the Apple site](https://developer.apple.com/download/more/), after signing-in with Apple developer account
 1. After being prompted to start the installation, you'll be prompted again to accept a software license for the tools to download.
 
@@ -122,7 +124,7 @@ Congrats! This is the beginning of your very first Gatsby site! 🎉
 
 You’ll be able to visit the site locally at [**_http://localhost:8000_**](http://localhost:8000/) for as long as your development server is running. That’s the process you started by running the `gatsby develop` command. To stop running that process (or to “stop running the development server”), go back to your terminal window, hold down the “control” key, and then hit “c” (ctrl-c). To start it again, run `gatsby develop` again!
 
-**Note:** If you are using VM setup like `vagrant` and/or would like to listen on your local IP address, run `gatsby develop -- --host=0.0.0.0`. Now, the development server listens on both 'localhost' and your local IP.
+**Note:** If you are using VM setup like `vagrant` and/or would like to listen on your local IP address, run `gatsby develop -H 0.0.0.0`. Now, the development server listens on both 'localhost' and your local IP.
 
 ## Set up a code editor
 
