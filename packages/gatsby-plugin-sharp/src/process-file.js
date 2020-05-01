@@ -133,6 +133,12 @@ exports.processFile = (file, contentDigest, transforms, options = {}) => {
       roundedWidth = Math.round(roundedWidth)
     }
 
+    if (args.toFormat === `jpg`) {
+      clonedPipeline.flatten({
+        background: args.background
+      });
+    }
+
     clonedPipeline
       .resize(roundedWidth, roundedHeight, {
         position: args.cropFocus,
