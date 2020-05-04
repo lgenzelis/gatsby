@@ -150,12 +150,27 @@ module.exports = (
       return resolve()
     }
 
-    let fluidResult = await fluid({
-      file: imageNode,
-      args: options,
-      reporter,
-      cache,
-    })
+    let fluidResult
+
+    if (options.toJpg) {
+      fluidResult = await fluid({
+        file: imageNode,
+        args: {
+          ...options,
+          toFormat: `JPG`,
+          background: options.jpgBackground,
+        },
+        reporter,
+        cache,
+      })
+    } else {
+      fluidResult = await fluid({
+        file: imageNode,
+        args: options,
+        reporter,
+        cache,
+      })
+    }
 
     if (!fluidResult) {
       return resolve()
