@@ -46,6 +46,25 @@ module.exports = async function onCreateNode(
       },
     }
 
+    let chapterMarkdownNodes
+    if (data.data.enableChapterLayout) {
+      chapterMarkdownNodes = data.data.chapterType.chapters.map(
+        (chapter, idx) => {
+          return {
+            id: createNodeId(
+              `${markdownNode.id}-${idx} >>> ChapterMarkdownRemark`
+            ),
+            children: [],
+            parent: markdownNode.id,
+            internal: {
+              content: chapter.body,
+              type: `MarkdownRemark`,
+            },
+          }
+        }
+      )
+    }
+
     markdownNode.frontmatter = {
       title: ``, // always include a title
       ...data.data,
@@ -57,11 +76,29 @@ module.exports = async function onCreateNode(
     // Add path to the markdown file path
     if (node.internal.type === `File`) {
       markdownNode.fileAbsolutePath = node.absolutePath
+      markdownNode.absolutePath = node.absolutePath
+      markdownNode.dir = node.dir
     }
 
     markdownNode.internal.contentDigest = createContentDigest(markdownNode)
 
     createNode(markdownNode)
+
+    if (chapterMarkdownNodes) {
+      chapterMarkdownNodes.map(chapterMarkdownNode => {
+        chapterMarkdownNode.internal.contentDigest = createContentDigest(
+          chapterMarkdownNode
+        )
+        chapterMarkdownNode.frontmatter = { title: `` }
+        chapterMarkdownNode.fileAbsolutePath = markdownNode.fileAbsolutePath
+        createNode(chapterMarkdownNode)
+        createParentChildLink({
+          parent: markdownNode,
+          child: chapterMarkdownNode,
+        })
+      })
+    }
+
     createParentChildLink({ parent: node, child: markdownNode })
 
     return markdownNode
