@@ -1,5 +1,5 @@
 {
-  "name": "gatsby-remark-copy-linked-files",
+  "name": "@lgenzelis/gatsby-remark-copy-linked-files",
   "description": "Find files which are linked to from markdown and copy them to the public directory",
   "version": "2.1.14",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
